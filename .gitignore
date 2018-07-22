@@ -1,4 +1,4 @@
 data/
 .python-version
 tmp/
-
+.idea/

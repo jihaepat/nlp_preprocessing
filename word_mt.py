@@ -1,6 +1,5 @@
 import sys, argparse
 import numpy as np
-import torch
 
 from sklearn.metrics.pairwise import cosine_similarity
 
@@ -45,7 +44,11 @@ def get_word_translation(src_labels, src_vectors, tgt_labels, tgt_vectors, k = 1
                 max_idx = np.argmax(sim[i])
     
                 if sim[i][max_idx] >= thres:
-                    s2t[src_labels[(iteration * max_length) + i]] = ([] if s2t.get(src_labels[(iteration * max_length) + i]) is None else s2t[src_labels[(iteration * max_length) + i]]) + [tgt_labels[max_idx]]
+                    s2t[src_labels[(iteration * max_length) + i]] = \
+                        (
+                            [] if s2t.get(src_labels[(iteration * max_length) + i]) is None
+                            else s2t[src_labels[(iteration * max_length) + i]]
+                        ) + [tgt_labels[max_idx]]
     
                 sim[i][max_idx] = -np.inf
 
