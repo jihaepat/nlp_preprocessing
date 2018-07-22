@@ -33,13 +33,13 @@ cat ./news.en.refined.sep.tok.txt ted.en.refined.sep.tok.txt > en.tok.txt
 cat ./news.ko.refined.sep.tok.txt ted.ko.refined.sep.tok.txt > ko.tok.txt
 
 # get word embedding vectors based on corpus for each language
-~/Workspace/nlp/fastText/fasttext skipgram -input ko.tok.txt -output ko.tok -dim 256 -epoch 100 -minCount 5
-~/Workspace/nlp/fastText/fasttext skipgram -input en.tok.txt -output en.tok -dim 256 -epoch 100 -minCount 5
+~/git/fastText/fasttext skipgram -input ko.tok.txt -output ko.tok -dim 256 -epoch 100 -minCount 5
+~/git/fastText/fasttext skipgram -input en.tok.txt -output en.tok -dim 256 -epoch 100 -minCount 5
 
 # get modified word vectors for each language
-rm -rf ~/Workspace/nlp/MUSE/dumped/debug/*
-time python ~/Workspace/nlp/MUSE/supervised.py --src_lang en --tgt_lang ko --src_emb ./en.tok.vec --tgt_emb ./ko.tok.vec --n_refinement 5 --cuda False --emb_dim 256 --dico_train default
-cp -f ~/Workspace/nlp/MUSE/dumped/debug/*/vectors-*.txt ./
+rm -rf ~/git/MUSE/dumped/debug/*
+time python ~/git/MUSE/supervised.py --src_lang en --tgt_lang ko --src_emb ./en.tok.vec --tgt_emb ./ko.tok.vec --n_refinement 5 --cuda True --emb_dim 256 --dico_train default
+cp -f ~/git/MUSE/dumped/debug/*/vectors-*.txt ./
 
 # build word translation dictionary based on modified word vectors using cosine similarity
 python ../word_mt.py -src vectors-en.txt -tgt vectors-ko.txt -dict enko.auto.dict -k 3 -thres .4
@@ -49,3 +49,4 @@ cat enko.prev.dict enko.auto.dict | sort | uniq > enko.dict
 wc -l ./enko.dict
 
 cd ../
+

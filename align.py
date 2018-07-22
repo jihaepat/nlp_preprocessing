@@ -1,6 +1,6 @@
 import sys, argparse, os
 
-BIN = "/home/khkim/Workspace/nlp/champollion/bin/champollion"
+BIN = "/home/gulby/git/champollion/bin/champollion"
 CMD = "%s -c %f -d %s %s %s %s"
 OMIT = "omitted"
 DIR_PATH = './tmp/'
